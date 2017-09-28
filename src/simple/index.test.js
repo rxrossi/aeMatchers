@@ -91,7 +91,11 @@ describe('Simple matcher', () => {
 					sub: {
 						subKey: 'subVal'
 					}
-				}
+				},
+				sons: [
+					'Ana',
+					'John',
+				]
 			};
 
 			const answer = {
@@ -104,7 +108,11 @@ describe('Simple matcher', () => {
 					sub: {
 						subKey: like('subVal')
 					}
-				}
+				},
+				sons: [
+					like('Ana'),
+					like('John'),
+				]
 			};
 
 			const instance = like(testObject);
