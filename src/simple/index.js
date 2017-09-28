@@ -18,34 +18,36 @@ class cLike {
 
 	toSimpler() {
 
-	return getStructure(this.value)
+		let startVal = this.value;
 
-		function getStructure (structure, prev) {
+		if (typeof startVal !== 'object') {
+			return this
+		}
 
-			prev = prev || structure;
+		return getStructure(this.value)
+
+		function getStructure (structure, prevLoc = []) {
 
 			Object.entries(structure).forEach(([name, value]) => {
 				if (typeof value === 'object') {
-					return Object.assign({},
-						structure,
-						getStructure(value)
-					)
+					return getStructure(value, [...prevLoc, name])
 				}
 
-				// console.log(structure)
-				structure = Object.assign({},
-					structure,
-					{[name]: like(value)}
-				)
-				// console.log(2, structure)
+				updateObject(startVal, like(value), [...prevLoc, name])
 			})
 
-			return structure;
+			return startVal;
 
-			// return console.log(
-				// structure
-				// JSON.stringify(structure, null, 2)
-			// )
+		}
+
+		function updateObject(object, newValue, stack){
+
+			while(stack.length>1){
+				object = object[stack.shift()];
+			}
+
+			object[stack.shift()] = newValue;
+
 		}
 
 	}
@@ -60,3 +62,4 @@ export default like;
 export const isInstanceOfLike = (object) => {
 	return object instanceof cLike;
 };
+

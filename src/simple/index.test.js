@@ -14,6 +14,11 @@ describe('Simple matcher', () => {
 			expect(isInstanceOfLike(instance)).toBe(false);
 		});
 
+		it('return itself when using toSimpler() method', () => {
+			const instance = like('aVal');
+			expect(instance.toSimpler()).toEqual(instance);
+		})
+
 	})
 
 	describe('Strings and Numbers', () => {
@@ -75,32 +80,36 @@ describe('Simple matcher', () => {
 			expect(instance.toValue()).toEqual(testObject);
 		});
 
-		it.only('converts to instances of single numbers or strings', () => {
+		it('converts to instances of single numbers or strings', () => {
 			const testObject = {
 				name: 'July',
 				surname: 'Doe',
 				extra: 'extraVal',
 				address: {
-					city: 'Piracicaba'
+					city: 'Piracicaba',
+					state: 'SP',
+					sub: {
+						subKey: 'subVal'
+					}
 				}
 			};
 
 			const answer = {
 				name: like('July'),
 				surname: like('Doe'),
+				extra: like('extraVal'),
+				address: {
+					city: like('Piracicaba'),
+					state: like('SP'),
+					sub: {
+						subKey: like('subVal')
+					}
+				}
 			};
 
 			const instance = like(testObject);
 
-			console.log(
-				instance.toSimpler()
-			);
-
-			// console.log(
-			// 	instance.toSimpler().address.city
-			// );
-
-			// expect(instance.toSimpler()).toEqual(answer);
+			expect(instance.toSimpler()).toEqual(answer);
 		});
 	})
 })
