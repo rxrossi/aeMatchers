@@ -11,3 +11,25 @@ when asked for its like value would print
 
 simple should be able to convert strings, number objects or arrays, write more test cases
 
+How to represent a sort of eachLike
+
+{
+	name: 'John'.
+	sons: at least two like:
+		{
+			name: 'July'
+		},
+}
+
+What about to add new lines when 
+	entriesToConsoleLog - Not a good idea, it converts array of line to string
+	on compare, compare does not add lines
+
+The best ways seems to when in entriesToConsoleLog, create a 
+
+
+	[
+		{
+			name: 'July'
+		}
+	]
